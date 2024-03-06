@@ -1,4 +1,4 @@
-const Task = require("../model/Task");
+const Task = require("../models/Task");
 
 const taskController = {};
 taskController.createTask = async (req, res) => {
@@ -7,8 +7,8 @@ taskController.createTask = async (req, res) => {
         const newTask = new Task({task, isComplete});
         await newTask.save();
         res.status(200).json({status:'ok', data: newTask});
-    } catch(err) {
-        res.status(400).json({status:'fail', error:err});
+    } catch(error) {
+        res.status(400).json({status:'fail', error: error.message});
     }
 };
 
@@ -16,8 +16,8 @@ taskController.getTask = async (req, res) => {
     try {
         const taskList = await Task.find({}).select("-__v");
         res.status(200).json({status: 'ok', data: taskList});
-    } catch(err) {
-        res.status(400).json({status:'fail', error:err});
+    } catch(error) {
+        res.status(400).json({status:'fail', error: error.message});
     }   
 };
 
@@ -28,8 +28,8 @@ taskController.putTask = async (req, res) => {
         newTask.isComplete = ! newTask.isComplete;
         await newTask.save();
         res.status(200).json({status: 'ok', data: newTask});
-    } catch(err) {
-        res.status(400).json({status:'fail', error:err});
+    } catch(error) {
+        res.status(400).json({status:'fail', error: error.message});
     }   
 };
 
@@ -38,8 +38,8 @@ taskController.deleteTask = async (req, res) => {
         const taskId = req.params.id;
         await Task.deleteOne({_id: taskId});
         res.status(200).json({status: 'ok'});
-    } catch(err) {
-        res.status(400).json({status: 'fail', error:err});
+    } catch(error) {
+        res.status(400).json({status: 'fail', error: error.message});
     }
 };
 
