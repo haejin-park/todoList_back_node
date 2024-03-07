@@ -11,7 +11,7 @@ authController.authenticate = (req,res,next) => {
             if(error) {
                 throw new Error('Invalid token');
             }
-            console.log('payload',payload); //res써주기 전 terminal에서 id값 확인
+            //console.log('payload',payload); //res써주기 전 terminal에서 id값 확인
             req.userId = payload._id;
         });
         next();
