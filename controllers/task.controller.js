@@ -15,7 +15,8 @@ taskController.createTask = async (req, res) => {
 
 taskController.getTasks = async (req, res) => {
     try {
-        const taskList = await Task.find({}).populate("author").select("-__v");
+        const {userId} = req;
+        const taskList = await Task.find({author: userId}).populate("author").select("-__v");
         res.status(200).json({status: 'ok', data: taskList});
     } catch(error) {
         res.status(400).json({status:'fail', message: error.message});
