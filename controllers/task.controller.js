@@ -25,7 +25,7 @@ taskController.getTasks = async (req, res) => {
 
 taskController.putTask = async (req, res) => {
     try {
-        const taskId = req.params.id; //url에서 id가져오기
+        const taskId = req.params.id;
         const newTask = await Task.findById(taskId);
         newTask.isComplete = ! newTask.isComplete;
         await newTask.save();
